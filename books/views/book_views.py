@@ -8,7 +8,7 @@ from books.filters import BookFilter
 from books.forms import AddBookForm
 from books.models import Book
 
-
+# TOHLE SMAZAT
 class AddBookView(View):
     form_class = AddBookForm
     initial = {'key': 'value'}
