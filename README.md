@@ -1,1 +1,1 @@
-# django-bookshelf
+# django-bookshelf :)
