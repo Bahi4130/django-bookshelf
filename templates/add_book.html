@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+add book
+{% endblock title %}
+
+{% block content %}
+<a href="{% url 'index' %}">Back</a>
+
+   <form action="/add-book/" method="post">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="Add book">
+   </form>
+
+{% endblock content %}
+

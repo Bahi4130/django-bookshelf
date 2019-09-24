@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+books
+{% endblock title %}
+
+{% block content %}
+<a href="{% url 'add_book' %}">Add book</a><br />
+    <p>
+    <form action="/" method="get">
+    {% csrf_token %}
+    {{ filter.form }}
+    <input type="submit" value="Filter">
+    </form>
+    </p>
+    <table>
+    <tr>
+        <th>ISBN</th>
+        <th>Author</th>
+        <th>Title</th>
+        <th>Year</th>
+        <th>Description</th>
+        <th>Borrowed by</th>
+        <th>Borrowed till</th>
+    </tr>
+    {% for book in filter.qs %}
+        <tr>
+            <td>{{ book.isbn }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.year }}</td>
+            <td>{{ book.description }}</td>
+            <td>{{ book.borrowed_by_who }}</td>
+            <td>{{ book.borrowed_till|default:'' }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock content %}
