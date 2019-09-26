@@ -8,7 +8,7 @@ from books.filters import BookFilter
 from books.forms import AddBookForm
 from books.models import Book
 
-# TOHLE SMAZAT
+
 class AddBookView(View):
     form_class = AddBookForm
     initial = {'key': 'value'}
@@ -50,22 +50,23 @@ class AddBookView(View):
         if date is not None:
             return date
 
-        return ''
+        return None
 
     def __save_to_db(self, form):
         book = self.__book_mapping_for_db(form)
         book.save()
 
     def __map_is_borrowed(self, borrowed_by_who):
-        if borrowed_by_who is not None:
+        if borrowed_by_who is not '':
             return True
 
         return False
 
 
 class BooksListView(ListView):
+    """Index view - displays filters and books list"""
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         books_list = Book.objects.all()
         books_filter = BookFilter(request.GET, queryset=books_list)
 

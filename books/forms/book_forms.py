@@ -3,7 +3,6 @@ import datetime
 from django import forms
 
 
-
 class AddBookForm(forms.Form):
     isbn = forms.CharField(label='ISBN', max_length=200)
     author = forms.CharField(label='Author', max_length=200)
