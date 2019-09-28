@@ -9,7 +9,7 @@ books
     <p>
     <form action="/" method="get">
     {% csrf_token %}
-    {{ filter.form }}
+    {{ filter_form }}
     <input type="submit" value="Filter">
     </form>
     </p>
@@ -23,7 +23,7 @@ books
         <th>Borrowed by</th>
         <th>Borrowed till</th>
     </tr>
-    {% for book in filter.qs %}
+    {% for book in filter_querystring %}
         <tr>
             <td>{{ book.isbn }}</td>
             <td>{{ book.author }}</td>

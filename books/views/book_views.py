@@ -46,17 +46,19 @@ class AddBookView(View):
 
         return book
 
+    def __save_to_db(self, form):
+        book = self.__book_mapping_for_db(form)
+        book.save()
+
     def __map_borrowed_till(self, date):
+        """If field 'borrowed_till' is empty, return None - DateField cannot be empty string."""
         if date is not None:
             return date
 
         return None
 
-    def __save_to_db(self, form):
-        book = self.__book_mapping_for_db(form)
-        book.save()
-
     def __map_is_borrowed(self, borrowed_by_who):
+        """If field 'borrowed_by_who is empty string, the book is set as not borrowed (False in 'is_borrowed' field."""
         if borrowed_by_who is not '':
             return True
 
@@ -65,16 +67,12 @@ class AddBookView(View):
 
 class BooksListView(ListView):
     """Index view - displays filters and books list"""
-
     def get(self, request, *args, **kwargs):
         books_list = Book.objects.all()
         books_filter = BookFilter(request.GET, queryset=books_list)
 
-        return render(request, 'index.html', {'filter': books_filter})
-
-
-
-
-
+        return render(request, 'index.html', {'filter_form': books_filter.form,
+                                              'filter_querystring': books_filter.qs,
+                                              })
 
 

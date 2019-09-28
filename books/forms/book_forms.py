@@ -15,5 +15,3 @@ class AddBookForm(forms.Form):
         required=False,
         widget=forms.widgets.DateInput(attrs={'type': 'date'})
     )
-
-
