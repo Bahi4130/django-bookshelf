@@ -34,6 +34,7 @@ class AddBookView(View):
         return render(request, self.template_name, {'form': form})
 
     def __book_mapping_for_db(self, form):
+        """Explicit mapping due to 'is_borrowed' field which is filled automatically """
         book = Book()
         book.isbn = form.cleaned_data['isbn']
         book.author = form.cleaned_data['author']
@@ -67,6 +68,7 @@ class AddBookView(View):
 
 class BooksListView(ListView):
     """Index view - displays filters and books list"""
+
     def get(self, request, *args, **kwargs):
         books_list = Book.objects.all()
         books_filter = BookFilter(request.GET, queryset=books_list)
@@ -74,5 +76,3 @@ class BooksListView(ListView):
         return render(request, 'index.html', {'filter_form': books_filter.form,
                                               'filter_querystring': books_filter.qs,
                                               })
-
-
